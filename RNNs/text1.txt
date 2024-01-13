@@ -1,0 +1,131 @@
+
+
+Bài viết: Phép màu đằng sau ChatGPT và các mô hình ngôn ngữ
+---------------------------------------------------------------------------------------
+
+
+Ngôn ngữ đã luôn là một phần cốt rễ trong đời sống loài người, là chiếc túi thần kì chứa đựng văn hóa và tri thức của nhân loại. Những thách thức xã hội qua các thời kỳ đã biến thành sức ép cho nhân loại không ngừng tiến hóa. Với nhu cầu nâng cao hiệu quả trong giao tiếp, ngôn ngữ đã ra đời, khiến phương thức liên lạc giữa người với người trở nên hiệu quả và thuận tiện hơn bao giờ hết.
+
+Dù thời điểm ra đời chính xác của ngôn ngữ là một dấu chấm hỏi lớn, các nhà khoa học đều cho rằng sự xuất hiện của ngôn ngữ là khá trễ so với lịch sử đồ sộ của trái đất. Sau đây là một số mốc thời gian đáng chú ý: tổ tiên chung của loài bán hầu, vượn, và khỉ được cho rằng đã xuất hiện vào khoảng 65 triệu năm trước; con người và loài tinh tinh bắt đầu tách nhau ra thành 2 nhánh trên cây phát triển của sự tiến hóa (evolutionary trees) khoảng 6 triệu năm trước (Pagel, 2017). Trong khi đó, ngôn ngữ loài người được cho là có tuổi đời chỉ trong vòng hàng trăm nghìn năm. Thậm chí, vào 3300 trước công nguyên (tức là khoảng 5000 đến 6000 năm trước), con người mới phát minh ra được chữ viết, giúp công cuộc giao tiếp vượt qua được khoảng cách về không gian và thời gian (Bacon et al., 2023). 
+Ngôn ngữ là phương tiện thông giao có tầm ảnh hưởng vĩ đại và muôn khía cạnh trong cuộc sống loài người. Ngoài làm vật thể hóa được những cảm xúc trừu tượng ẩn sâu trong con người, ngôn ngữ còn là công cụ để chế tạo ra những công trình mà trước đó chỉ có thể mơ tới trong những bài văn học viễn tưởng (bom nguyên tử, vệ tinh, chatbot,...).
+
+Có thể nói, ngôn ngữ của loài người gần như đã đạt đến độ chín muồi khi việc cải tiến nó ở từng quốc gia đều phải thận trọng xem xét, bởi chỉ một thay đổi nhỏ cũng có thể mang đến ảnh hưởng khó lường tới xã hội. Tuy vậy, con người vẫn không rũ bỏ tham vọng của mình khi mang những thành tựu của ngôn ngữ để ứng dụng trên máy móc. AI (artificial intelligence), hay còn được gọi là trí tuệ nhân tạo, đã trở thành công nghệ không còn xa lạ. Trí tuệ nhân tạo là là một loại lập trình máy tính có khả năng mô phỏng các hành vi của con người, thực hiện các nhiệm vụ được giao để đạt được kết quả tối ưu nhất (chẳng hạn như tìm đường đi ngắn nhất giữa hai địa điểm, phân biệt được các vật thể trong một bức hình, tự động chơi trò chơi, biết vẽ tranh,...). Dưới đây là một số ví dụ về trí tuệ nhân tạo:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+19/2/1996, Deep Blue, siêu máy tính của IBM đã đánh bại nhà vô địch cờ vua lúc đấy là Garry Kasparov. Garry Kasparov được ví là kì thủ cờ vua vĩ đại nhất trong lịch sử và lí do ông giải nghệ là vì không tìm được đối thủ ngang tầm.
+
+
+Bức tranh khung cảnh của một người thư giãn bên dòng sông nằm sâu trong cánh rừng được vẽ hoàn toàn bởi mô hình Midjourney.
+
+
+
+Đặc biệt trong vấn đề liên quan đến ngôn ngữ, AI bây giờ có thể dễ dàng sáng tác thơ, viết kịch bản phim, giao tiếp với con người bằng câu từ mang sắc thái cảm xúc, tự viết ngôn ngữ lập trình để giải các bài toán logic. Trước khả năng xử lý văn bản đáng kinh ngạc của công nghệ hiện nay, hiểu biết về giới hạn của các “cỗ máy” này là điều cần thiết để mỗi người có thể nhận thức và sử dụng chúng một cách đúng đắn. Để thu gọn tầm nhìn trước nhiều mảng nhỏ của Trí tuệ nhân tạo, chúng ta cùng nhau bước vào chủ đề xử lý ngôn ngữ tự nhiên.
+
+
+
+Xử lý ngôn ngữ tự nhiên (Natural Language Processing - NLP)
+
+Xử lý ngôn ngữ tự nhiên là một nhánh nghiên cứu của Trí tuệ nhân tạo, nằm trong khuôn khổ nhưng không bị giới hạn bởi ngành Khoa học máy tính. NLP đã mô phỏng lại một vài quy luật của ngôn ngữ và kết hợp với toán học để tạo ra các mô hình như Machine Learning (học máy) hoặc Deep Learning (học sâu), từ đó giúp bản thân các mô hình này hiểu và đoán được con người đang truyền đạt điều gì trong các văn bản mà chúng được cung cấp.
+
+Đến đây, các thuật ngữ như Học máy (Machine Learning) hay Học sâu (Deep Learning) có thể hiểu một cách đơn giản là chúng đại diện cho một chuỗi các phép tính toán. Lấy ví dụ trong xử lý ngôn ngữ tự nhiên, khi đầu vào của các mô hình ngôn ngữ đọc: “Titanic là một bộ phim hay”, chúng sẽ không ngay lập tức suy luận xem Titanic là bộ phim về chủ đề gì, diễn biến của bộ phim đó có kịch tính hay không.
+
+
+Thay vào đó, một mô hình ngôn ngữ thông thường sẽ hiểu bất kỳ câu hay từ nào mà nó nhận được dưới dạng con số và đưa ra kết quả dưới dạng xác suất (khả năng xảy ra). Nếu nhiệm vụ của mô hình ngôn ngữ là xác định xem một câu nói là khen hay chê, thì kết quả của một thuật toán hiệu quả cho câu nói “Titanic là một bộ phim hay” có thể lên đến 0.99 (99%). Để ra được con số này, mô hình ngôn ngữ sẽ phải tính toán được các tham số (parameters) cho toàn bộ các phép tính. Tham số có thể hiểu đơn giản là ẩn số được đặt vào các phương trình, và nhiệm vụ của mô hình ngôn ngữ là phải giải ra được các ẩn số này để mà phương trình có thể đưa được kết quả giống với mong muốn nhất.
+
+
+
+Sự xuất hiện của mô hình ngôn ngữ được cho là vào khoảng từ năm 1948 đến năm 1950 (Manning, 2022), từ đó cho đến nay, đã có những “kẻ thống trị” thay phiên nhau dẫn đầu về độ chính xác trong bài toán xử lý ngôn ngữ tự nhiên, có thể kể đến như mô hình N-Gram, mô hình dựa trên Recurrent Neural Networks, và gần đây nhất là mô hình dựa trên cơ chế Attention.
+
+Vậy mô hình ngôn ngữ lớn có gì khác biệt với các mô hình ngôn ngữ còn lại và điều gì khiến cho chúng trở nên đặc biệt như vậy?
+
+Mô hình ngôn ngữ lớn (Large Language Models - LLMs)
+
+Trong quãng thời gian vừa qua, ChatGPT, một con chatbot thông minh đã khiến cho nhiều người không khỏi kinh ngạc lẫn lo sợ trước khả năng đưa ra phản hồi chính xác và mô phỏng lại cách giao tiếp vô cùng giống con người. ChatGPT là một ví dụ điển hình cho thấy các sản phẩm ứng dụng mô hình ngôn ngữ hiện nay đã thực hiện đa dạng các công việc yêu cầu lượng kiến thức và kinh nghiệm nhất định, như viết code, sáng tác thơ, giải toán, vv. Để có thể bao quát được nhiều lĩnh vực như vậy, chatbot AI này đã phải học từ số lượng văn bản khổng lồ trên internet, từ Wikipedia, Reddit, cho tới các tác phẩm của Shakespeare. Từ đó, các mô hình ngôn ngữ này được gọi là mô hình ngôn ngữ lớn (Large Language Models - LLMs). “Lớn” ở đây chỉ tới việc tăng mạnh lượng dữ liệu được đưa vào mô hình và lượng tham số (parameters), việc tăng quy mô như vậy đòi hỏi mô hình phải gia tăng số phép tính cần thiết để đưa ra được kết quả cuối cùng.
+
+
+
+
+Một yếu tố quan trọng trong các mô hình ngôn ngữ lớn chính là cơ chế Attention. Mô hình ngôn ngữ cần phải dựa vào các từ ngữ cảnh xung quanh một từ để hiểu ý nghĩa của từ đó. Ví dụ, trong câu nói “Con mèo nhà tôi, nó đang chơi với ông hàng xóm”, để hiểu được từ “nó” thì chúng ta cần xem xét các từ xung quanh đó. Tuy nhiên, nếu chỉ đơn thuần dựa vào các từ xung quanh thôi có lẽ vẫn chưa đủ vì chúng ta không thật sự biết rằng những từ nào liên quan đến từ “nó” nhiều hơn các từ còn lại. Từ đấy, chúng ta cần có một phương pháp để nhấn mạnh “con mèo” lên từ “nó” thay vì “ông hàng xóm”. Dựa trên ý tưởng này, Attention đã lần đầu tiên được giới thiệu trong bài báo “Neural Machine Translation by Jointly Learning to Align and Translate” viết bởi Bahdanau năm 2014, qua đó giúp chúng ta giải quyết được vấn đề này. Hiểu một cách đơn giản, với mỗi từ trong đoạn văn, cơ chế Attention sẽ tính trọng số cho các từ xung quanh nó, trọng số càng cao thể hiện từ đó có ý nghĩa liên quan tới từ đang được xét nhiều nhất. Nói một cách khác, với mỗi cặp từ, mô hình sẽ dự đoán điểm tương đồng giữa hai từ này (nếu điểm tương đồng này càng cao thì có khả năng hai từ này đang cùng chỉ một sự vật, sự việc, hoặc bổ trợ nghĩa cho nhau)
+
+Nhờ vào cơ chế Attention, các mô hình ngôn ngữ lớn lần lượt ra đời và đã thể hiện khả năng thấu hiểu ngôn ngữ khi được cho thực hiện các nhiệm vụ như phân loại văn bản (phát hiện thư rác, phân nhóm các văn bản cùng nội dung), nhận dạng thực thể trong văn bản (nhận dạng từ nào biểu thị cho cá nhân, tổ chức, ngày tháng, địa điểm, vv), tóm tắt văn bản hoặc hoàn thiện văn bản còn thiếu, trong số vô vàn khả năng khác. 
+
+Để biết mô hình ngôn ngữ lớn “thông minh” đến mức nào, chúng ta hãy cùng đặt một số câu hỏi cho ChatGPT để thách thức khả năng của người bạn này.
+
+
+Thực hiện phép tính và đưa ra lời giải thích.
+
+
+Điều thú vị trong câu trả lời này là nhân vật trong đoạn văn được viết theo phong cách của Shakespeare có nhiều điểm chung với William Shakespeare.
+
+Đoạn code được viết bởi ChatGPT.
+
+
+
+Với những câu trả lời nhanh chóng và đáng tin cậy, ChatGPT đã chứng minh sự xuất sắc của mình cho dù có tham gia cuộc thi hỏi đáp ở bất kì lĩnh vực nào. Thế nhưng, đồng xu nào cũng có hai mặt và mô hình ngôn ngữ lớn cũng không tránh khỏi sự thật này. 
+
+Những khuyết điểm của mô hình ngôn ngữ lớn (Large Language Models)
+
+Độ chính xác
+
+Như đã đề cập ở trên, việc mô hình ngôn ngữ lớn đưa ra câu trả lời hoàn toàn dựa vào xác suất của từng lựa chọn cho câu trả lời đó, vì thế, chúng hoàn toàn có khả năng lựa những từ ngữ không đúng sự thật. Điều đáng sợ ở đây là dù đó có là câu trả lời sai thì mô hình ngôn ngữ cũng sẽ trả lời một cách rất tự tin, thậm chí nó còn có thể đưa ra lời giải thích tưởng chừng là hợp lý cho đáp án của mình. Nếu các thông tin sai lệch của mô hình ngôn ngữ lớn được tin tưởng và lan truyền bởi người dùng thì hoàn toàn có khả năng dẫn đến những hậu quả khủng khiếp, thậm chí một kiến thức, quan điểm sai lệch có thể ngấm sâu vào một bộ phận xã hội. Để phòng ngừa vấn đề này, người dùng mô hình ngôn ngữ cần giữ cho mình tư duy phản biện, cần đặt nghi vấn cho câu văn của mô hình để so sánh với các nguồn thông tin đã được xác thực. 
+
+
+Thiên kiến
+
+Đầu ra của một mô hình ngôn ngữ có thể bị ảnh hưởng bởi dữ liệu mà nó học được. Không quá ngạc nhiên khi đáp án cho một câu hỏi cụ thể của mô hình ngôn ngữ có thể bị thiên về một giới tính, một màu da, hay một dân tộc cụ thể, lý do có thể bởi vì trong dữ liệu được đưa vào có quá nhiều văn bản đề cập đến thiên hướng đó. Do vậy, người dùng cần nhìn nhận mọi thứ được đưa ra một cách khách quan nhất, đồng thời, các nhà nghiên cứu và kỹ sư cũng nên đưa ra những giải pháp về mặt kỹ thuật để cậu bạn mô hình ngôn ngữ này không thiên vị một người hay một nhóm thuộc trường phái nào cả.
+
+Pháp lý
+
+Để có được lượng lớn dữ liệu cho mô hình ngôn ngữ lớn, các nhà nghiên cứu đã gom vô vàn dữ liệu từ khắp nơi trên internet, vì thế kiểm duyệt toàn bộ dữ liệu là hoàn toàn không thể. Thật khó để biết được câu trả lời của mô hình này được lôi từ ngóc ngách nào của internet, nó có thể đến từ một trang web với nội dung độc hại, có thể là một văn bản của cá nhân, tổ chức nào đó nhưng đã được bảo vệ bởi bản quyền. Dưới tốc độ phát triển nhanh chóng của Trí tuệ nhân tạo như bây giờ, các văn bản pháp lý sẽ phải được cập nhật liên tục để kịp thời hướng người dùng tới cách dùng công nghệ đúng đắn nhất để bảo vệ quyền lợi của từng cá nhân/tổ chức.
+
+Tài nguyên
+
+Để tăng độ chính xác của mô hình ngôn ngữ, một cách thường thấy là cho mô hình học trên càng nhiều dữ liệu càng tốt. Chính vì thế mà việc huấn luyện một mô hình ngôn ngữ lớn đòi hỏi rất nhiều thời gian và tài nguyên để tính toán, một chiếc máy tính cả nhân với mức giá phổ thông đôi khi là không đủ mà cần tới bộ xử lí đủ mạnh để có thể nhanh chóng thực hiện hàng tỉ phép tính. Điều này dẫn đến chi phí để huấn luyện một mô hình ngôn ngữ là hoàn toàn không rẻ, do đó không phải ai cũng có đủ nguồn lực tài chính  để nguyên cứu và tạo ra một mô hình cho riêng mình.
+
+
+(Morgan, 2023)
+
+Bên cạnh đấy, những tổn thất khi huấn luyện mô hình ngôn ngữ còn được xem xét từ khía cạnh môi trường. Tùy vào thời gian huấn luyện, bộ xử lí được sử dụng mà lượng năng lượng tiêu tốn để hoàn thiện mô hình ngôn ngữ lớn là khác nhau, dẫn đến việc thải ra khí Cacbonic là điều tất yếu. Lượng khí CO2 được thải ra qua việc tạo ra mô hình ngôn ngữ thậm chí còn lớn hơn lượng CO2 mà ôtô thải ra trong suốt quãng đời của mình. 
+
+
+
+(Strubell et al., 2019)
+
+
+Trong việc hạn chế những tổn thất này, một trong những biện pháp được đề xuất là thay vì tạo ra một mô hình ngôn ngữ lớn với hàng tỉ tham số, chúng ta có thể dùng sẵn những mô hình với tham số đã được tính toán từ trước, từ đấy chỉnh sửa tập nhỏ tham số sao cho phù hợp cho các bài toán khác. Hay có thể hiểu một cách khác: nếu phải lựa chọn một người cho nhiệm vụ bay lên mặt trăng, chúng ta sẽ lựa chọn huấn luyện những sinh viên xuất sắc trong ngành hàng không thay vì chọn một em bé mới chào đời và bỏ cả quá trình dài để theo sát và dạy dỗ.
+
+
+Nhận định:
+
+Nhìn chung, mô hình ngôn ngữ lớn là công cụ hỗ trợ con người trong nhiều công việc liên quan đến văn bản (phân loại văn bản, tóm tắt văn bản, sinh văn bản,...) và chắc chắn sẽ được tận dụng một cách tối ưu nhất trong tương lai về sau. Dù đang phải đối mặt với các vấn đề về độ chính xác, thiên kiến, pháp lý, hay tài nguyên thì cũng khó để xác định được rằng sản phẩm của trí tuệ nhân tạo này về sau còn có thể tiến hóa đến mức nào. Do vậy, thay vì sợ hãi trước công nghệ có khả năng thay thế con người, chúng ta cần phải thích nghi, biết dùng một cách đúng đắn và đưa ra những hướng đi đúng đắn cho tất cả các lĩnh vực chịu sự ảnh hưởng của mô hình ngôn ngữ lớn. 
+
+Dưới đây là một số câu hỏi thú vị về mô hình ngôn ngữ lớn dành cho bất kì bạn đọc nào hứng thú về xử lí ngôn ngữ tự nhiên và có khát khao được khám phá sâu hơn:
+Liệu việc liên tục tăng lượng dữ liệu đầu vào có giúp mô hình ngôn ngữ thông minh hơn không?
+Tại sao con người dù không đọc nhiều như ChatGPT nhưng vẫn có khả năng đưa ra những câu trả lời chính xác hơn?
+Làm sao để mô hình ngôn ngữ không học những tính xấu từ văn bản được lấy từ khắp nơi trên internet? 
+
+
+
+
+
+
+
+
+
+
+
+
