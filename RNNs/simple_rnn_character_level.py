@@ -210,7 +210,7 @@ def train(model: RNN, data: DataLoader, epochs: int, optimizer: optim.Optimizer,
         
         
 if __name__ == "__main__":
-    data = open('text1.txt', 'r').read() # use any text file you want to learn
+    data = open('data/text.txt', 'r').read() # use any text file you want to learn
     data = data.lower()
 
     # Data size variables
