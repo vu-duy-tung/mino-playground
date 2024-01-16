@@ -6,6 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import random
 import glob
+from tqdm import tqdm
 
 import unicodedata
 import string
@@ -29,17 +30,27 @@ class TextDataset(Dataset):
         self.vocab = self.concatenate_into_text(data)
         self.id2char = {u:v for u, v in enumerate(self.vocab)}
         self.char2id = {v:u for u, v in enumerate(self.vocab)}
+        self.label2id = {v:u for u, v in enumerate(self.classes)}
         self.all_samples = []
         for class_name, samples in self.data.items():
             for sample in samples:
                 self.all_samples.append((sample, class_name))
         self.data_size = len(self.all_samples)
-        self.all_samples = [self.string2vector(sample[0]), self.string2vector(sample[1]) for sample in self.all_samples]
+        self.all_samples = [(self.string2vector(sample[0]), self.label2vector(sample[1])) for sample in self.all_samples]
         
     def string2vector(self, text: str) -> list:
         vector = []
         for c in text:
             vector.append(self.char2id[c])
+        
+        while len(vector) < 30:
+            vector.append(self.char2id[" "])
+        
+        return vector
+    
+    def label2vector(self, text: str) -> list:
+        vector = [0] * self.num_classes
+        vector[self.label2id[text]] = 1
         return vector
     
     def concatenate_into_text(self, data: dict) -> str:
@@ -70,11 +81,10 @@ class TextDataset(Dataset):
 Model definition
 """
 class RNN(nn.Module):
-    def __init__(self, input_size: int, hidden_size: int, num_layers: int, num_classes: int, batch_size: int=1) -> None:
+    def __init__(self, input_size: int, hidden_size: int, num_classes: int, batch_size: int=1) -> None:
         super().__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
-        self.num_layers = num_layers
         self.num_classes = num_classes
         self.batch_size = batch_size
         
@@ -82,15 +92,14 @@ class RNN(nn.Module):
         self.h2h = nn.Linear(hidden_size, hidden_size)
         self.h2o = nn.Linear(hidden_size, num_classes)
         
-    def forward(self, x, hidden) -> torch.Tensor:
+    def forward(self, x, hidden_state) -> torch.Tensor:
         # Set initial hidden state
-        h0 = torch.zeros(self.batch_size, self.hidden_size)
         
         x = self.i2h(x)
         hidden_state = self.h2h(hidden_state)
         hidden_state = torch.tanh(x + hidden_state)
         out = self.h2o(hidden_state)
-        return nn.Softmax(out, dim=1)
+        return nn.Softmax(dim=1)(out), hidden_state
     
     def init_zero_hidden(self, batch_size: int=-1) -> torch.Tensor:
         if batch_size == -1:
@@ -116,7 +125,7 @@ def train(model: RNN, data: DataLoader, epochs: int, optimizer: optim.Optimizer,
             
             for c in range(X.shape[1]):
                 out, hidden = model(X[:, c].reshape(X.shape[0], 1), hidden)
-
+            
             loss = loss_fn(out, Y)
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 3)
@@ -158,9 +167,27 @@ if __name__ == "__main__":
         all_categories.append(category)
         lines = readLines(filename)
         category_lines[category] = lines
-        
+    
+    
+    batch_size = 32
+    hidden_size = 64
+    
     text_dataset = TextDataset(category_lines, all_categories)
     
-    seq_length = 25
-    batch_size = 8
+    train_size = int(len(text_dataset) * 0.8)
+    test_size = len(text_dataset) - train_size
+    train_set, test_set = torch.utils.data.random_split(text_dataset, [train_size, test_size])
+    
+    train_dataloader = DataLoader(train_set, batch_size)
+    test_dataloader = DataLoader(test_set, batch_size)
+    
+    model = RNN(input_size=1, hidden_size=hidden_size, num_classes=text_dataset.num_classes, batch_size=batch_size)
+    
+    epochs = 100
+    loss = nn.CrossEntropyLoss()
+    optimizer = optim.RMSprop(model.parameters(), lr=0.01)
+    
+    train(model, train_dataloader, epochs, optimizer, loss)
+    
+
     
