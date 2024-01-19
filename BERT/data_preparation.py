@@ -70,7 +70,7 @@ class IMDBBertDataset(Dataset):
         return int(np.percentile(arr, self.OPTIMAL_LENGTH_PERCENTILE))
     
     def _fill_vocab(self):
-        self.vocab = vocab(self.counter, min_feq=2)
+        self.vocab = vocab(self.counter, min_freq=2)
         self.vocab.insert_token(self.CLS, 0)  
         self.vocab.insert_token(self.PAD, 1)  
         self.vocab.insert_token(self.MASK, 2)  
@@ -96,7 +96,23 @@ class IMDBBertDataset(Dataset):
             self.counter.update(tokens)
             
         self._fill_vocab()
-        return
+        
+        print("Preprocessing dataset")
+        cnt = 0
+        for review in tqdm(self.ds):
+            cnt += 1
+            review_sentences = review.split('. ')
+            if len(review_sentences) > 1:
+                for i in range(len(review_sentences) - 1):
+                    first, second = self.tokenizer(review_sentences[i]), self.tokenizer(review_sentences[i+1])
+                    nsp.append(self._create_item(first, second, 1))
+                    
+                    # False NSP item
+                    first, second = self._select_false_nsp_sentences(sentences)
+                    first, second = self.tokenizer(first), self.tokenizer(second)
+                    nsp.append(self._create_item(first, second, 0))
+        df = pd.DataFrame(nsp, columns=self.columns)
+        
 
 
 if __name__ ==  "__main__":
