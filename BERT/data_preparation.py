@@ -78,6 +78,14 @@ class IMDBBertDataset(Dataset):
         self.vocab.insert_token(self.UNK, 4)  
         self.vocab.set_default_index(4)
         
+    def _create_item(self, first: typing.List[str], second: typing.List[str], target: int):
+        # create masked sentence item
+        updated_first, first_mask = self._preprocess_sentence(first.copy())
+        updated_second, second_mask = self._preprocess_sentence(second.copy())
+        nsp_sentence = updated_first + [self.SEP] + updated_second
+        nsp_indices = self.vocab.lookup_indices(nsp_sentence)
+        inverse_token_mask = first_mask + [True] + second_mask
+        
     def prepare_dataset(self) -> pd.DataFrame:
         sentences = []
         nsp = []
