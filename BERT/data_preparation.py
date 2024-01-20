@@ -78,6 +78,22 @@ class IMDBBertDataset(Dataset):
         self.vocab.insert_token(self.UNK, 4)  
         self.vocab.set_default_index(4)
         
+    def _mask_sentence(self, sentence: typing.List[str]):
+        len_s = len(sentence)
+        inverse_token_mask = [True for _ in range(max(len_s, self.optimal_sentence_length))]
+        
+        mask_amount = round(len_s * self.MASK_PERCENTAGE)
+        for _ in range(mask_amount):
+            i = random.randint(0, len_s - 1)
+            if random.random() < 0.8:
+                sentence[i] = self.MASK
+            else:
+                sentence[i] = self.vocab.lookup_token(sentence[i])
+            inverse_token_mask[i] = False
+            
+        return sentence, inverse_token_mask
+                
+        
     def _create_item(self, first: typing.List[str], second: typing.List[str], target: int):
         # create masked sentence item
         updated_first, first_mask = self._preprocess_sentence(first.copy())
@@ -85,6 +101,8 @@ class IMDBBertDataset(Dataset):
         nsp_sentence = updated_first + [self.SEP] + updated_second
         nsp_indices = self.vocab.lookup_indices(nsp_sentence)
         inverse_token_mask = first_mask + [True] + second_mask
+        
+        
         
     def prepare_dataset(self) -> pd.DataFrame:
         sentences = []
