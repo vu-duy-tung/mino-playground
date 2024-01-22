@@ -79,20 +79,39 @@ class IMDBBertDataset(Dataset):
         self.vocab.set_default_index(4)
         
     def _mask_sentence(self, sentence: typing.List[str]):
+        """Replace MASK_PERCENTAGE of words with MASK token or random word token
+
+        Args:
+            sentence (typing.List[str]): sentence to mask
+
+        Returns:
+            (processed sentence, inverse token mask)
+        """
+        
         len_s = len(sentence)
         inverse_token_mask = [True for _ in range(max(len_s, self.optimal_sentence_length))]
         
         mask_amount = round(len_s * self.MASK_PERCENTAGE)
         for _ in range(mask_amount):
             i = random.randint(0, len_s - 1)
+            
             if random.random() < 0.8:
                 sentence[i] = self.MASK
             else:
-                sentence[i] = self.vocab.lookup_token(sentence[i])
+                j = random.randint(5, len(self.vocab) - 1)
+                sentence[i] = self.vocab.lookup_token(j)
+                
             inverse_token_mask[i] = False
             
         return sentence, inverse_token_mask
+    
+    def _preprocess_sentence(self, sentence: typing.List[str], should_mask: bool=True):
+        inverse_token_mask = True
+        if should_mask:
+            sentence, inverse_token_mask = self._mask_sentence(sentence)
+        sentence, inverse_token_mask = self._pad_sentence([self.CLS] + sentence, [True] + inverse_token_mask)
                 
+        return sentence, inverse_token_mask
         
     def _create_item(self, first: typing.List[str], second: typing.List[str], target: int):
         # create masked sentence item
@@ -138,6 +157,8 @@ class IMDBBertDataset(Dataset):
                     first, second = self.tokenizer(first), self.tokenizer(second)
                     nsp.append(self._create_item(first, second, 0))
         df = pd.DataFrame(nsp, columns=self.columns)
+        
+    
         
 
 
