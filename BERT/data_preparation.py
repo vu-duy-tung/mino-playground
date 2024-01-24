@@ -57,7 +57,28 @@ class IMDBBertDataset(Dataset):
         return len(self.df)
     
     def __getitem__(self, index):
-        return
+        item = self.df.iloc[index]
+
+        inp = torch.Tensor(item[self.MASKED_INDICES_COLUMN]).long()
+        token_mask = torch.Tensor(item[self.TOKEN_MASK_COLUMN]).bool()
+        
+        mask_target = torch.Tensor(item[self.TARGET_COLUMN]).long()
+        mask_target = mask_target.masked_fill_(token_mask, 0)
+        
+        attention_mask = (inp == self.vocab[self.PAD]).unsqueeze(0)
+        
+        if item[self.NSP_TARGET_COLUMN] == 0:
+            t = [1, 0]
+        else:
+            t = [0, 1]
+        
+        nsp_target = torch.Tensor(t)
+        
+        return (
+            inp.to(device),
+            attention_mask.to(device),
+            
+        )
     
     def _update_length(self, sentences: typing.List[str], lengths: typing.List[str]):
         for v in sentences:
@@ -105,8 +126,26 @@ class IMDBBertDataset(Dataset):
             
         return sentence, inverse_token_mask
     
+    def _pad_sentence(self, sentence: typing.List[str], inverse_token_mask: typing.List[bool]=None):
+        len_s = len(sentence)
+        
+        if len_s >= self.optimal_sentence_length:
+            s = sentence[:self.optimal_sentence_length]
+        else:
+            s = sentence + [self.PAD] * (self.optimal_sentence_length - len_s)
+            
+        # inverse token mask should be padded as well
+        if inverse_token_mask:
+            len_m = len(inverse_token_mask)
+            if len_m >= self.optimal_sentence_length:
+                inverse_token_mask = inverse_token_mask[:self.optimal_sentence_length]
+            else:
+                inverse_token_mask = inverse_token_mask + [True] * (self.optimal_sentence_length - len_s)
+        
+        return s, inverse_token_mask
+    
     def _preprocess_sentence(self, sentence: typing.List[str], should_mask: bool=True):
-        inverse_token_mask = True
+        inverse_token_mask = [True] * len(sentence)
         if should_mask:
             sentence, inverse_token_mask = self._mask_sentence(sentence)
         sentence, inverse_token_mask = self._pad_sentence([self.CLS] + sentence, [True] + inverse_token_mask)
@@ -117,10 +156,55 @@ class IMDBBertDataset(Dataset):
         # create masked sentence item
         updated_first, first_mask = self._preprocess_sentence(first.copy())
         updated_second, second_mask = self._preprocess_sentence(second.copy())
+        
         nsp_sentence = updated_first + [self.SEP] + updated_second
         nsp_indices = self.vocab.lookup_indices(nsp_sentence)
         inverse_token_mask = first_mask + [True] + second_mask
         
+        # Create sentence item without masking random words
+        first, _ = self._preprocess_sentence(first.copy(), should_mask=False)
+        second, _ = self._preprocess_sentence(second.copy(), should_mask=False)
+        original_nsp_sentence = first + [self.SEP] + second
+        original_nsp_indices = self.vocab.lookup_indices(original_nsp_sentence)
+        
+        if self.should_include_text:
+            return (
+                nsp_sentence,
+                nsp_indices,
+                original_nsp_sentence,
+                original_nsp_indices,
+                inverse_token_mask,
+                target
+            ) 
+        else:
+            return (
+                nsp_indices,
+                original_nsp_indices,
+                inverse_token_mask,
+                target
+            )
+            
+    def _select_false_nsp_sentences(self, sentences: typing.List[str]):
+        """ Select sentences to create false nsp item
+        Args:
+            sentences: list of all sentences
+            
+        Returns:
+            Tuple of two sentences and the second one is not the next sentence of the first one
+        
+        """
+        number_of_sentences = len(sentences)
+        
+        while True:
+            first_sentence_idx = random.randint(0, number_of_sentences-1)
+            second_sentence_idx = random.randint(0, number_of_sentences-1)
+            if abs(first_sentence_idx - second_sentence_idx) > 1:
+                break
+        
+        if first_sentence_idx > second_sentence_idx:
+            first_sentence_idx, second_sentence_idx = second_sentence_idx, first_sentence_idx
+        
+        return sentences[first_sentence_idx], sentences[second_sentence_idx]
         
         
     def prepare_dataset(self) -> pd.DataFrame:
@@ -156,7 +240,10 @@ class IMDBBertDataset(Dataset):
                     first, second = self._select_false_nsp_sentences(sentences)
                     first, second = self.tokenizer(first), self.tokenizer(second)
                     nsp.append(self._create_item(first, second, 0))
+                    
         df = pd.DataFrame(nsp, columns=self.columns)
+        
+        return df
         
     
         
@@ -166,4 +253,8 @@ if __name__ ==  "__main__":
     BASE_DIR = Path(__file__).resolve().parent
     print(BASE_DIR)
     
-    data = IMDBBertDataset(path='data/IMDB Dataset.csv')
+    data = IMDBBertDataset(path='data/IMDB Dataset.csv', ds_from=0, ds_to=50000, should_include_text=True)
+    
+    print(type(data.df))
+    print(data.df.columns)
+    print(data[0])
