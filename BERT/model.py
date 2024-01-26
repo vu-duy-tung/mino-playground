@@ -41,6 +41,10 @@ class JointEmbedding(nn.Module):
         pos[:, 1::2] = torch.cos(pos[:, 1::2])
         
         return pos.expand(batch_size, *pos.size())
+    
+    def numeric_position(self, dim, input_tensor):
+        pos_tensor = torch.arange(dim, dtype=torch.long).to(device)
+        return pos_tensor.expand_as(input_tensor)
         
 class AttentionHead(nn.Module):
     def __init__(self, dim_inp, dim_out):
