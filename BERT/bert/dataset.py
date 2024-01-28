@@ -60,7 +60,7 @@ class IMDBBertDataset(Dataset):
 
     def __getitem__(self, idx):
         item = self.df.iloc[idx]
-
+        
         inp = torch.Tensor(item[self.MASKED_INDICES_COLUMN]).long()
         token_mask = torch.Tensor(item[self.TOKEN_MASK_COLUMN]).bool()
 

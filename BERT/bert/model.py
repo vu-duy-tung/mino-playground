@@ -97,6 +97,8 @@ class Encoder(nn.Module):
     def __init__(self, dim_inp, dim_out, attention_heads=4, dropout=0.1):
         super(Encoder, self).__init__()
 
+        self.dim_inp = dim_inp
+        self.dim_out = dim_out
         self.attention = MultiHeadAttention(attention_heads, dim_inp, dim_out)  # batch_size x sentence size x dim_inp
         self.feed_forward = nn.Sequential(
             nn.Linear(dim_inp, dim_out),
@@ -105,6 +107,7 @@ class Encoder(nn.Module):
             nn.Linear(dim_out, dim_inp),
             nn.Dropout(dropout)
         )
+        # self.add_norm = nn.LayerNorm([])
         self.norm = nn.LayerNorm(dim_inp)
 
     def forward(self, input_tensor: torch.Tensor, attention_mask: torch.Tensor):

@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 EMB_SIZE = 64
 HIDDEN_SIZE = 36
-EPOCHS = 4
+EPOCHS = 15
 BATCH_SIZE = 12
 NUM_HEADS = 4
 
@@ -39,8 +39,8 @@ if __name__ == '__main__':
         print_progress_every=20,
         print_accuracy_every=200,
         batch_size=BATCH_SIZE,
-        learning_rate=0.00007,
-        epochs=15
+        learning_rate=0.0001,
+        epochs=EPOCHS
     )
 
     trainer.print_summary()
